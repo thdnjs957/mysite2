@@ -64,7 +64,12 @@ public class UserController {
 	} 
 	
 	@RequestMapping(value="/update", method=RequestMethod.GET)
-	public String update() {
+	public String update(Model model,HttpSession session) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		UserVo userVo = userService.getUser(authUser.getNo());
+		
+		model.addAttribute("userVo",userVo);
 		
 		return "user/updateform";
 	}
@@ -75,7 +80,7 @@ public class UserController {
 
 		boolean result = userService.update(userVo);
 		
-		return "user/update";
+		return "redirect:/";
 	}
 	
 	

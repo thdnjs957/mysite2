@@ -17,8 +17,8 @@ public class UserService {
 
 	}
 	
-	public UserVo getUser(Long userNo) { //modify용
-		return null;
+	public UserVo getUser(Long userNo) { 
+		return userDao.get(userNo);
 	}
 	
 

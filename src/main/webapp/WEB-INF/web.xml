@@ -19,7 +19,7 @@
 	</context-param>
 
 
-	<!-- Context Loader Listener --> <!-- 콘테이너 하나 만듦 -->
+	<!-- Context Loader Listener --> <!-- 콘테이너 하나 만듦 --> <!-- applicationContext -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

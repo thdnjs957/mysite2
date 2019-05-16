@@ -17,16 +17,16 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="user">
-				<form id="update-form" name="updateform" method="post" action="<%=request.getContextPath() + "/user" %>">
+				<form id="update-form" name="updateform" method="post" action="${pageContext.servletContext.contextPath }/user/update">
 					<input type="hidden" name="a" value="update" />
 					<input type="hidden" name="no" value="${authUser.no}" />
 					
 					<h4>기존 이름 : </h4> 
-					${name }<br />
+					${userVo.name }<br />
 					<h4>기존 이메일 : </h4> 
-					${email }<br />
+					${userVo.email }<br />
 					<h4>기존 비밀번호 : </h4>
-					${password }<br />
+					${userVo.password }<br />
 					
 					<label class="block-label" for="name">수정할 이름</label>
 					<input id="name" name="name" type="text" value="">					
