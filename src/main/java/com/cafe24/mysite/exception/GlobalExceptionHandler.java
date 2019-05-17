@@ -19,7 +19,6 @@ public class GlobalExceptionHandler {
 		
 		//e.printStackTrace(); 이렇게 하면 console로 나오고 끝임 파일로 저장 필요
 		//1.로깅
-		
 		StringWriter errors = new StringWriter();
 		
 		e.printStackTrace(new PrintWriter(errors));
@@ -35,7 +34,6 @@ public class GlobalExceptionHandler {
 		request.getRequestDispatcher("/WEB-INF/views/error/exception.jsp").forward(request, response);
 
 	}
-	
 	
 	
 }

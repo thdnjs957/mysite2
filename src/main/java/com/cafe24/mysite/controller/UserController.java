@@ -93,6 +93,13 @@ public class UserController {
 		return "redirect:/";
 	} 
 	
+	@RequestMapping("/myinfo")
+	public String myinfo() {
+		
+		return "user/myinfo";
+	} 
+	
+	
 //	@ExceptionHandler( Exception.class )
 //	public String handleUserDaoException() {
 //		return "error/exception";

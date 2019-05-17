@@ -29,9 +29,7 @@
 					${userVo.password }<br />
 					
 					<label class="block-label" for="name">수정할 이름</label>
-					<input id="name" name="name" type="text" value="">					
-					<label class="block-label" for="email">수정할 이메일</label>
-					<input id="email" name="email" type="text" value="">
+					<input id="name" name="name" type="text" value="">			
 					<label class="block-label" >수정할 패스워드</label>
 					<input name="password" type="password" value="">
 					

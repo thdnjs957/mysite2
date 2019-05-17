@@ -13,7 +13,7 @@
 					<c:otherwise>
 						<li><a href="${pageContext.servletContext.contextPath }/user/update">회원정보수정</a><li>
 						<li><a href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a><li>
-						<li><a href="${pageContext.servletContext.contextPath }/user?a=myInfo&no=${authUser.no}">내 정보 보기</a><li>
+						<li><a href="${pageContext.servletContext.contextPath }/user/myinfo&no=${authUser.no}">내 정보 보기</a><li>
 						<li><a href="${pageContext.servletContext.contextPath }/user">${authUser.name}</a>님 안녕하세요 ^^</li>
 					</c:otherwise>
 				</c:choose>
