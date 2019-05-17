@@ -1,10 +1,5 @@
 package com.cafe24.mysite.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -20,9 +15,6 @@ public class GuestbookDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	
-	@Autowired
-	private DataSource dataSource;
 	
 	
 	public List<GuestbookVo> getList() {

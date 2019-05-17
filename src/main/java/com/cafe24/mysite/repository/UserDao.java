@@ -1,13 +1,8 @@
 package com.cafe24.mysite.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +17,11 @@ public class UserDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Autowired
-	private DataSource dataSource;
-
 	public boolean insert(UserVo vo) {
-		
 		System.out.println(vo);
 		int count = sqlSession.insert("user.insert",vo);
 		System.out.println(vo);
 		return 1 == count;
-		
 	}
 
 	public boolean update(UserVo vo) {
