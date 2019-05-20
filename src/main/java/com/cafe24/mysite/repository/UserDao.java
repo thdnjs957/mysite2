@@ -1,6 +1,7 @@
 package com.cafe24.mysite.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -31,7 +32,15 @@ public class UserDao {
 		return 1 == count;
 
 	}
-
+	
+	public UserVo get(String email) {
+		
+		UserVo result = sqlSession.selectOne("user.getByEmail",email);
+		
+		return result;
+	}
+	
+	
 	public UserVo get(Long no) {
 		
 		UserVo result = sqlSession.selectOne("user.getByNo",no);
@@ -51,5 +60,6 @@ public class UserDao {
 		return uservo;
 		
 	}
+	
 
 }

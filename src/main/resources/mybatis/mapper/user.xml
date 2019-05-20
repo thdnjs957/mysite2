@@ -19,6 +19,13 @@
 		
 	</select>
 	
+	<select id="getByEmail" parameterType="string" resultType="uservo"> 
+		<![CDATA[
+			selec name,email,password,gender,join_date from user where email = #{email}
+		]]>
+	</select>
+	
+	
 	<select id="getByNo" parameterType="long" resultType="uservo"> <!-- 기본 타입이 들어오면 그냥 아무거나 써도 됨! -->
 		<![CDATA[
 			select name,email,password,gender,join_date from user where no = #{value}
