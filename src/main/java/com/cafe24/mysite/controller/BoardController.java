@@ -53,10 +53,8 @@ public class BoardController {
 		Long userNo = authUser.getNo();
 		boardVo.setUserNo(userNo);
 
-		System.out.println("**************"+boardNo);
 		model.addAttribute("boardNo",boardNo);
 		
-		//write에 boardNo을 심어줘야함, write까지는 boardNo이 옴 
 		if(boardNo != null) {
 			boardVo = boardService.getEachBoardVo(boardNo);
 			Map<String,Object> map = new HashMap<String, Object>();
