@@ -16,30 +16,33 @@
 		<div id="content">
 			<div id="board" class="board-form">
 				<table class="tbl-ex">
+					
 					<tr>
 						<th colspan="2">글보기</th>
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>제목입니다.</td>
+						<td>${vo.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								내용 1입니다.<br>
-								내용 2입니다.<br>
-								내용 3입니다.
+								${fn:replace(vo.contents,newLine,"<br>") }
 							</div>
 						</td>
 					</tr>
+						
+						
 				</table>
 				<div class="bottom">
-					<a href="">글목록</a>
-					<a href="">글수정</a>
+					<a href="${pageContext.servletContext.contextPath }/board/write?boardNo=${vo.no}">답글달기</a>
+					<a href="${pageContext.servletContext.contextPath }/board/list">글목록</a>
+					<a href="${pageContext.servletContext.contextPath }/board/modify?boardNo=${vo.no}&userNo=${vo.userNo}">글수정</a>
 				</div>
 			</div>
 		</div>
+		
 		<c:import url="/WEB-INF/views/includes/navigation.jsp">
 				<c:param name="menu" value="board"/>
 		</c:import>

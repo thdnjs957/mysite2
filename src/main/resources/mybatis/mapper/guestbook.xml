@@ -17,7 +17,7 @@
 		]]>
 	</select>
 	
-	<select id="getList2" resultType="guestbookvo" parameterType="long"> 만약에 if문 안에서 쓸려면 이름을 정확히 써줘야 함
+	<select id="getList2" resultType="guestbookvo" parameterType="long"> 
 		<![CDATA[
 			select no, name, contents, date_format(reg_date,'%Y-%m-%d %h:%i:%s')
 			 from guestbook

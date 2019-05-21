@@ -15,7 +15,7 @@
 
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
+				<form id="search_form" action="${pageContext.servletContext.contextPath }/board/list" method="post">
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 				</form>
@@ -35,12 +35,12 @@
 					<c:forEach items = '${list }' var = 'vo' varStatus = 'status'>
 				
 					<tr>
-						<td>[${count - status.index }]</td>	<!-- 원래는 0대신 vo.depth로 -->
-						<td style ="text-align:left; padding-left:${20*0}px"><a href="" >${vo.title }</a></td>
-						<td>${vo.name }</td>
+						<td>[${count - status.index}]</td>	<!-- 원래는 0대신 vo.depth로 -->
+						<td style ="text-align:left; padding-left:${20*0}px"><a href="${pageContext.servletContext.contextPath }/board/view?boardNo=${vo.no }" >${vo.title }</a></td>
+						<td>${vo.userName }</td>
 						<td>${vo.hit }</td>
-						<td>${vo.reg_date }</td>
-						<td><a href="" class="del">삭제</a></td>
+						<td>${vo.regDate }</td>
+						<td><a href="${pageContext.servletContext.contextPath }/board/delete?boardNo=${vo.no }&userNo=${vo.userNo}" class="del">삭제</a></td>
 					</tr>
 					
 					</c:forEach>
