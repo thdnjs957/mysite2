@@ -10,45 +10,63 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- auto proxy -->
+	<aop:aspectj-autoproxy />
+
 	<!-- 1. validator설정!, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
-			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-			    <property name="supportedMediaTypes">
-				        <list>
-				             <value>text/html; charset=UTF-8</value>
-				        </list>
-			    </property>
+			<bean
+				class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html; charset=UTF-8</value>
+					</list>
+				</property>
 			</bean>
-			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-			   <property name="supportedMediaTypes">
-			       <list>
-			            <value>application/json; charset=UTF-8</value>
-			        </list>
-			   </property>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
 			</bean>
+
 		</mvc:message-converters>
-		
+
 	</mvc:annotation-driven>
 
 	<!-- 2. 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 --> <!-- 찾다 찾다 없으면 기본 서블릿이 url 찾음 -->
 	<mvc:default-servlet-handler />
 
 	<!-- 3. viewResolver 설정 -->
-	<bean id="viewResolve" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	<bean id="viewResolve"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
-
+	
+	<!-- MessageSource -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	   <property name="basenames">
+	      <list>
+			<value>messages/messages_ko</value>
+	      </list>
+	   </property>
+	</bean>
+	
 	<!-- 빈 설정을 annotation으로 하겠다.(@Controller에 auto scanning) -->
 	<context:annotation-config />
 
 	<!-- Controller Scanning 하는 base package -->
-	<context:component-scan base-package="com.cafe24.mysite.controller,com.cafe24.mysite.controller.api,com.cafe24.mysite.exception" />
-	
-	
-	
+	<context:component-scan
+		base-package="com.cafe24.mysite.controller,com.cafe24.mysite.controller.api,com.cafe24.mysite.exception" />
+
+
+
 
 </beans>

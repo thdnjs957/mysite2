@@ -16,7 +16,7 @@
 		<div id="content">
 			<div id="board">
 				<form id="search_form" action="${pageContext.servletContext.contextPath }/board/list" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+					<input type="text" id="keyword" name="keyword" value="${keyword }">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -36,7 +36,11 @@
 				
 					<tr>
 						<td>[${count - status.index}]</td>	<!-- 원래는 0대신 vo.depth로 -->
-						<td style ="text-align:left; padding-left:${20*0}px"><a href="${pageContext.servletContext.contextPath }/board/view?boardNo=${vo.no }" >${vo.title }</a></td>
+						<td style ="text-align:left; padding-left:${15*vo.depth}px">
+						<c:if test="${0 ne vo.depth }">
+							<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png'>
+						</c:if>	
+							<a href="${pageContext.servletContext.contextPath }/board/view?boardNo=${vo.no }" >${vo.title }</a></td>
 						<td>${vo.userName }</td>
 						<td>${vo.hit }</td>
 						<td>${vo.regDate }</td>
@@ -62,7 +66,7 @@
 				<!-- pager 추가 -->
 				
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board/write" id="new-book">글쓰기</a>
+					<a href="${pageContext.servletContext.contextPath }/board/write2" id="new-book">글쓰기</a>
 				</div>				
 			</div>
 		</div>

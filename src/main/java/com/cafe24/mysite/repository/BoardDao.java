@@ -23,9 +23,9 @@ public class BoardDao {
 
 	}
 
-	public List<BoardVo> getList() {
+	public List<BoardVo> getList(Map<String, Object> map) {
 		
-		List<BoardVo> result = sqlSession.selectList("board.getList");
+		List<BoardVo> result = sqlSession.selectList("board.getList",map);
 		return result;
 	
 	}
@@ -51,14 +51,20 @@ public class BoardDao {
 
 	}
 
-	public boolean updateOrderNo(Map<String, Object> map) {
-		int count = sqlSession.update("board.updateOrderNo",map);
+	public boolean updateOrderNo(BoardVo boardGetVo) {
+		int count = sqlSession.update("board.updateOrderNo",boardGetVo);
 		return 1 == count;
 	}
 
 	public boolean delete(long boardNo) {
 		int count = sqlSession.delete("board.delete",boardNo);
 		return 1 == count;	
+	}
+
+	public boolean insertReply(BoardVo boardVo) {
+		int count = sqlSession.insert("board.insertReply",boardVo);
+		
+		return 1 == count;
 	}
 	
 	

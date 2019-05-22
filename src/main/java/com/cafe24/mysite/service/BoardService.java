@@ -16,9 +16,9 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
-	public List<BoardVo> getList() {
+	public List<BoardVo> getList(Map<String, Object> map) {
 
-		return boardDao.getList();
+		return boardDao.getList(map);
 
 	}
 
@@ -26,7 +26,12 @@ public class BoardService {
 		
 		return boardDao.insert(boardVo);
 	}
-
+	
+	public boolean insertReply(BoardVo boardVo) {
+		
+		return boardDao.insertReply(boardVo);
+	}
+	
 	public boolean delete(Long boardNo) {
 		return boardDao.delete(boardNo);
 	}
@@ -43,8 +48,8 @@ public class BoardService {
 		return boardDao.hitUpdate(boardNo);
 	}
 
-	public boolean replyInsert(Map<String, Object> map) {
-		return boardDao.updateOrderNo(map);
+	public boolean updateOrderNo(BoardVo boardGetVo) {
+		return boardDao.updateOrderNo(boardGetVo);
 	}
 	
 }
