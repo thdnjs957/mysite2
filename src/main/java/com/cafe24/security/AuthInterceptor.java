@@ -34,7 +34,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 //		}
 		//auth.getClass().getAnnotation(annotationClass);
 		
-		
 		//5. @Auth가 안 붙어있는 경우
 		if(auth == null) {
 			return true;
@@ -59,27 +58,25 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		//여기까지 온건 handler method고 auth가 붙어있고 인증도 되어있어
 		//7. Role 가져오기
-		//Auth.Role role = auth.role(); //Auth.Role.USER or Auth.Role.ADMIN
+		Auth.Role role = auth.role(); //Auth.Role.USER or Auth.Role.ADMIN
 		
 		//8. role이 Auth.Role.USER 라면,
 		// 인증된 모든 사용자는 접근 가능, ADMIN 권한이 없어도 (관리자도 board write 할 수 있)
-//		if(role == Auth.Role.USER) {
-//			return true;
-//		}
-
+		if(role == Auth.Role.USER) {
+			return true;
+		}
 
 		//9. 여기까지 오면 admin으로 접근한 것
 		//	Admin Role 권한 체크 
-		// authUser.getRole().equals("ADMIN");
-		//이것도 과제
 		//admin이면 
-		//return false;
-		if( auth != null ) {
-			if(authUser.getRole().equals("ADMIN") == false){
-				response.sendRedirect(request.getContextPath());
-				return false;
-			}
-		}
+		if(role == Auth.Role.ADMIN) {
+	         if(authUser.getRole().equals(Auth.Role.ADMIN.toString())) {
+	            return true;
+	         }else {
+	            response.sendRedirect(request.getContextPath()+"/");
+	            return false;
+	         }
+	      }
 		
 		return true;
 	}

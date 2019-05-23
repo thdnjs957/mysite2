@@ -1,5 +1,6 @@
 package com.cafe24.mysite.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,38 +20,34 @@ public class BoardService {
     @Autowired
     private BoardDao boardDao;
     
-    public List<BoardVo> getList(Map<String, Object> map,Model model) { //map.put("keyword", keyword) , map.put("curPage",curPage);
-    	
-    	int curPage = (int) map.get("curPage"); //현재 있는 페이지
-    	int prevPage;
-    	int nextPage;
-    	int totalPage = boardDao.getCount(map); 
-    	int totalBlock = (int)Math.ceil(totalPage)/PAGE_CNT;
-    	int curBlock = (int)Math.ceil((curPage-1)/PAGE_CNT)+1;
-    	int nextBlock;
-    	int pageBegin = (curPage-1) * BOARD_CNT +1;; //#{start}
-    	int pageEnd= pageBegin+BOARD_CNT-1; //#{end}
-    	int blockBegin = (curBlock-1)*PAGE_CNT+1;
-    	int blockEnd = blockBegin+PAGE_CNT-1;
-    	if(blockEnd > totalPage) blockEnd = totalPage;
-    	prevPage = (curPage == 1)? 1:(curBlock-1)*PAGE_CNT;
-    	//nextPage = curBlock > totalBlock ? (curBlock*PAGE_CNT);
-    	//if(nexPage >= totalPage) next
+    public Map<String,Object> getList(String keyword,int curPage) { //map.put("keyword", keyword) , map.put("curPage",curPage);
+       
+       
+       int pageStart = (curPage-1) * BOARD_CNT + 1;
+       int pageEnd = pageStart+BOARD_CNT-1;
+       int totalCount = boardDao.getCount(keyword); 
+       int totalBlock = (int)Math.ceil(totalCount)/PAGE_CNT;
+       
+       //boolean prev = pageStart != 1 ? true:false; // 페이징 이전 버튼 활성화 여부
+       //boolean next = pageEnd * BOARD_CNT >= totalCount ? false : true;
+       Map<String, Integer> pagerMap = new HashMap<String, Integer>();
+       pagerMap.put("pageStart", pageStart);
+       pagerMap.put("pageEnd", pageEnd);
+       
+       
+       Map<String, Object> listMap = new HashMap<String, Object>();
+       listMap.put("pageStart",pageStart);
+       listMap.put("pageCnt",PAGE_CNT);
+       listMap.put("keyword", keyword);
 
-    	map.put("totalPage", totalPage);
-    	map.put("boardCnt",BOARD_CNT);
-    	map.put("pageCnt",PAGE_CNT);
-    	map.put("pageBegin",pageBegin);
-    	map.put("pageEnd",pageEnd);
-    	map.put("blockBegin",blockBegin);
-    	map.put("blockEnd",blockEnd);
-    	map.put("prevPage",prevPage);
-    	
-    	model.addAttribute("blockBegin",map.get("blockBegin"));
-    	model.addAttribute("blockEnd",map.get("blockEnd"));
-
-        return boardDao.getList(map);
-
+       List<BoardVo> list = boardDao.getList(listMap);
+       
+      Map<String, Object> map = new HashMap<String, Object>();
+      
+      map.put("list", list);
+      map.put("pagerMap", pagerMap);
+      
+      return map;
     }
 
     public boolean insert(BoardVo boardVo) {
@@ -87,4 +84,3 @@ public class BoardService {
     
     
 }
-

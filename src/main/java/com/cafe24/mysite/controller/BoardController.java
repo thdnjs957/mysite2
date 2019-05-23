@@ -1,5 +1,4 @@
 package com.cafe24.mysite.controller;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,30 +27,30 @@ public class BoardController {
    public String list(Model model,@ModelAttribute BoardVo boardVo,@RequestParam(value="keyword", required=true, defaultValue="") String keyword,
                 @RequestParam(value="curPage",required=true ,defaultValue="1") int curPage)
    {
-        Map<String,Object> map = new HashMap<String,Object>();
-        
-        map.put("keyword", keyword);
-        map.put("curPage",curPage);
-        List<BoardVo> list = boardService.getList(map,model);
-        
-        model.addAttribute("list",list);
-        model.addAttribute("keyword",keyword);
-        
-        return "board/list";
+      Map<String,Object> map = boardService.getList(keyword,curPage);
+      
+      List<BoardVo> list = (List<BoardVo>)map.get("list");
+      
+      Map<String, Integer> pager = (Map<String, Integer>)map.get("pagerMap");
+      
+      model.addAttribute("list", list);
+      model.addAttribute("pager", pager);
+   
+       return "board/list";
    }
   
    @Auth(role = Auth.Role.USER) //role 속성 생략 가능
    @RequestMapping(value = "/write",method=RequestMethod.GET)
    public String write(Model model,@RequestParam(value="no", required=true, defaultValue="") Long no,HttpSession session) {
 
-	   if(no != null) {
-		   model.addAttribute("no", no);
-	   }
+      if(no != null) {
+         model.addAttribute("no", no);
+      }
 //      if(session.getAttribute("authUser") == null) {
 //         return "redirect:/user/login";
 //      }
 
-	   return "board/write";
+      return "board/write";
    }
   
   
@@ -120,6 +119,3 @@ public class BoardController {
   
   
 }
-
-
-

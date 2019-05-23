@@ -34,20 +34,20 @@
        </insert>
        
        <select id="getList" resultType="boardvo" parameterType="map">
-       		
+             
               <![CDATA[
                     SELECT b.no, b.title, b.contents, b.hit, b.reg_date as regDate ,b.user_no as userNo,b.group_no as groupNo ,u.name as userName,b.depth
                      FROM user u, board b
                      WHERE u.no = b.user_no
               ]]>
-			  <if test="keyword != null">
-	              <![CDATA[
+           <if test="keyword != null">
+                 <![CDATA[
                       AND title like CONCAT('%', #{keyword}, '%') OR contents like CONCAT('%', #{keyword}, '%')
-             	   ]]>
-			  </if> 
+                   ]]>
+           </if> 
               <![CDATA[
                     ORDER BY group_no DESC, order_no ASC 
-                    LIMIT #{pageBegin},#{pageCnt};
+                    LIMIT #{pageStart},#{pageCnt}
               ]]>
               
        </select>
@@ -103,14 +103,9 @@
        </delete>
        
        
-       <select id="count" parameterType="map" resultType="Integer">
+       <select id="count" parameterType="string" resultType="Integer">
              select count(*) from board 
-              <if test="keyword != null">
-	              <![CDATA[
-                      where title like CONCAT('%', #{keyword}, '%') OR contents like CONCAT('%', #{keyword}, '%')
-             	   ]]>
-			  </if> 
+                  where title like CONCAT('%', #{keyword}, '%') OR contents like CONCAT('%', #{keyword}, '%')
        </select>
        
 </mapper>
-

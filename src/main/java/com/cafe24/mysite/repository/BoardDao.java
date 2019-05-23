@@ -23,9 +23,9 @@ public class BoardDao {
 
    }
 
-   public List<BoardVo> getList(Map<String, Object> map) {
+   public List<BoardVo> getList(Map<String, Object> listMap) {
       
-      List<BoardVo> result = sqlSession.selectList("board.getList",map);
+      List<BoardVo> result = sqlSession.selectList("board.getList",listMap);
       return result;
    
    }
@@ -68,11 +68,10 @@ public class BoardDao {
    }
 
    
-   public int getCount(Map<String, Object> map) {
-	   int countResult = sqlSession.selectOne("board.count",map);
-	   
-	   return countResult;
+   public int getCount(String keyword) {
+      int countResult = sqlSession.selectOne("board.count",keyword);
+      
+      return countResult;
    }
-   
-   
 }
+   
