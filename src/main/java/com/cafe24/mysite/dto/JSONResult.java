@@ -32,12 +32,9 @@ public class JSONResult {
 		return data;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "JSONResult [result=" + result + ", message=" + message + ", data=" + data + "]";
 	}
-	
-	
 	
 }

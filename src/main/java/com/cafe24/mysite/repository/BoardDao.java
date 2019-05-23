@@ -68,5 +68,11 @@ public class BoardDao {
    }
 
    
+   public int getCount(Map<String, Object> map) {
+	   int countResult = sqlSession.selectOne("board.count",map);
+	   
+	   return countResult;
+   }
+   
    
 }

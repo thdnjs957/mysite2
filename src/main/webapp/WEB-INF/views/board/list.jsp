@@ -33,40 +33,43 @@
 					<c:set var ='count' value ='${fn:length(list) }' />
 				
 					<c:forEach items = '${list }' var = 'vo' varStatus = 'status'>
-				
-					<tr>
-						<td>[${count - status.index}]</td>	<!-- 원래는 0대신 vo.depth로 -->
-						<td style ="text-align:left; padding-left:${15*vo.depth}px">
-						<c:if test="${0 ne vo.depth }">
-							<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png'>
-						</c:if>	
-							<a href="${pageContext.servletContext.contextPath }/board/view?boardNo=${vo.no }" >${vo.title }</a></td>
-						<td>${vo.userName }</td>
-						<td>${vo.hit }</td>
-						<td>${vo.regDate }</td>
-						<td><a href="${pageContext.servletContext.contextPath }/board/delete?boardNo=${vo.no }&userNo=${vo.userNo}" class="del">삭제</a></td>
-					</tr>
-					
+						<tr>
+							<td>[${count - status.index}]</td>	<!-- 원래는 0대신 vo.depth로 -->
+							<td style ="text-align:left; padding-left:${15*vo.depth}px">
+							<c:if test="${0 ne vo.depth }">
+								<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png'>
+							</c:if>	
+								<a href="${pageContext.servletContext.contextPath }/board/view?boardNo=${vo.no }" >${vo.title }</a></td>
+							<td>${vo.userName }</td>
+							<td>${vo.hit }</td>
+							<td>${vo.regDate }</td>
+							<td><a href="${pageContext.servletContext.contextPath }/board/delete?boardNo=${vo.no }&userNo=${vo.userNo}" class="del">삭제</a></td>
+						</tr>
 					</c:forEach>
-					
 				</table>
 				
-				<!-- pager 추가 -->
 				<div class="pager">
-					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+					<ul class="btn-group pagination">
+					    <c:if test="${prev }"> <!-- prev가 있으면 -->
+						    <li>
+						        <a href='<c:url value="/board/list?curPage=${startPage-1 }"/>'><i class="fa fa-chevron-left"></i></a>
+						    </li>
+					    </c:if>
+					    <c:forEach begin='${blockBegin }' end='${blockEnd }' var="idx">
+						    <li>
+						        <a href='<c:url value="/board/list?curPage=${idx }"/>'><i class="fa">${idx }</i></a>
+						    </li>
+					    </c:forEach>
+					    <c:if test="${next && endPage >0 }">
+						    <li>
+						        <a href='<c:url value="/board/list?curPage=${endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>
+						    </li>
+					    </c:if>
 					</ul>
-				</div>					
-				<!-- pager 추가 -->
+				</div>
 				
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board/write2" id="new-book">글쓰기</a>
+					<a href="${pageContext.servletContext.contextPath }/board/write" id="new-book">글쓰기</a>
 				</div>				
 			</div>
 		</div>

@@ -13,7 +13,7 @@
 	<!-- auto proxy -->
 	<aop:aspectj-autoproxy />
 
-	<!-- 1. validator설정!, conversionService, messageConverter를 자동으로 등록 -->
+	<!-- validator설정!, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean
@@ -32,15 +32,23 @@
 					</list>
 				</property>
 			</bean>
-
 		</mvc:message-converters>
 
+		<!-- Argument Resolvers -->
+		<mvc:argument-resolvers>
+			<bean class="com.cafe24.security.AuthUserHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
+		
 	</mvc:annotation-driven>
 
-	<!-- 2. 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 --> <!-- 찾다 찾다 없으면 기본 서블릿이 url 찾음 -->
+	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 --> <!-- 찾다 찾다 없으면 기본 서블릿이 url 찾음 -->
 	<mvc:default-servlet-handler />
 
-	<!-- 3. viewResolver 설정 -->
+	<!-- the mvc resources url mapping -->
+	<mvc:resources mapping="/images/**" location="file:/mysite-uploads/" />
+
+
+	<!-- viewResolver 설정 -->
 	<bean id="viewResolve"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -59,14 +67,43 @@
 	   </property>
 	</bean>
 	
+	<!-- Interceptors -->
+    <mvc:interceptors>
+  
+    	<mvc:interceptor>
+	        <mvc:mapping path="/user/auth" /> 
+	    	<bean class="com.cafe24.security.AuthLoginInterceptor" /> <!-- Usercontroller에 들어오는거 막아야함 login logout session 빼내서 -->
+    			
+    	</mvc:interceptor>
+    	
+    	<mvc:interceptor>
+	        <mvc:mapping path="/user/logout" /> 
+	    	<bean class="com.cafe24.security.AuthLogoutInterceptor" /> 
+    	</mvc:interceptor>
+    	
+   		<mvc:interceptor>
+	        <mvc:mapping path="/**" /> 
+	        <mvc:exclude-mapping path="/user/logout"/>
+	        <mvc:exclude-mapping path="/user/auth"/>
+	        <mvc:exclude-mapping path="/assets/**"/>
+	        
+	    	<bean class="com.cafe24.security.AuthInterceptor" /> 
+    	</mvc:interceptor>
+    	
+        <!--
+         <mvc:interceptor>
+        	<mvc:mapping path="/guestbook/**" /> 
+    		<bean class="com.cafe24.mysite.interceptor.MyInterceptor02" />
+         </mvc:interceptor> 
+        -->
+    </mvc:interceptors>
+	
 	<!-- 빈 설정을 annotation으로 하겠다.(@Controller에 auto scanning) -->
 	<context:annotation-config />
 
 	<!-- Controller Scanning 하는 base package -->
 	<context:component-scan
 		base-package="com.cafe24.mysite.controller,com.cafe24.mysite.controller.api,com.cafe24.mysite.exception" />
-
-
 
 
 </beans>

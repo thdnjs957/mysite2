@@ -15,9 +15,9 @@ public class UserVo {
 	@Email
 	@NotEmpty
 	private String email;
-	
 	private String password;
 	private String gender;
+	private String role;
 	private String joinDate;
 	
 	public UserVo() {
@@ -65,11 +65,19 @@ public class UserVo {
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
-	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + ", joinDate=" + joinDate + "]";
+				+ gender + ", role=" + role + ", joinDate=" + joinDate + "]";
 	}
 	
 }
