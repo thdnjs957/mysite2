@@ -12,60 +12,61 @@ import com.cafe24.mysite.vo.BoardVo;
 @Repository
 public class BoardDao {
 
-	@Autowired
-	private SqlSession sqlSession;
-	
-	public boolean insert(BoardVo vo) {
+   @Autowired
+   private SqlSession sqlSession;
+   
+   public boolean insert(BoardVo vo) {
 
-		int count = sqlSession.insert("board.insert",vo);
-		
-		return 1 == count;
+      int count = sqlSession.insert("board.insert",vo);
+      
+      return 1 == count;
 
-	}
+   }
 
-	public List<BoardVo> getList(Map<String, Object> map) {
-		
-		List<BoardVo> result = sqlSession.selectList("board.getList",map);
-		return result;
-	
-	}
-	
-	public BoardVo getByBoardNo(long boardNo) {
-		
-		BoardVo vo = sqlSession.selectOne("board.getByBoardNo",boardNo);
-		return vo;
-	
-	}
+   public List<BoardVo> getList(Map<String, Object> map) {
+      
+      List<BoardVo> result = sqlSession.selectList("board.getList",map);
+      return result;
+   
+   }
+   
+   public BoardVo getByBoardNo(long boardNo) {
+      
+      BoardVo vo = sqlSession.selectOne("board.getByBoardNo",boardNo);
+      return vo;
+   
+   }
 
-	public boolean modifyVo(BoardVo vo) {
-		
-		int count = sqlSession.update("board.update",vo);
-		return 1 == count;
-	
-	}
+   public boolean modifyVo(BoardVo vo) {
+      
+      int count = sqlSession.update("board.update",vo);
+      return 1 == count;
+   
+   }
 
-	public boolean hitUpdate(Long boardNo) {
-		
-		int count = sqlSession.update("board.hitupdate",boardNo);
-		return 1 == count;
+   public boolean hitUpdate(Long boardNo) {
+      
+      int count = sqlSession.update("board.hitupdate",boardNo);
+      return 1 == count;
 
-	}
+   }
 
-	public boolean updateOrderNo(BoardVo boardGetVo) {
-		int count = sqlSession.update("board.updateOrderNo",boardGetVo);
-		return 1 == count;
-	}
+   public boolean updateOrderNo(BoardVo boardVo) {
+      int count = sqlSession.update("board.updateOrderNo",boardVo);
+      return 1 == count;
+   }
 
-	public boolean delete(long boardNo) {
-		int count = sqlSession.delete("board.delete",boardNo);
-		return 1 == count;	
-	}
+   public boolean reply(BoardVo boardVo) {
+      int count = sqlSession.insert("board.insertReply",boardVo);
+      
+      return 1 == count;
+   }
 
-	public boolean insertReply(BoardVo boardVo) {
-		int count = sqlSession.insert("board.insertReply",boardVo);
-		
-		return 1 == count;
-	}
-	
-	
+   public boolean delete(long boardNo) {
+      int count = sqlSession.delete("board.delete",boardNo);
+      return 1 == count;   
+   }
+
+   
+   
 }

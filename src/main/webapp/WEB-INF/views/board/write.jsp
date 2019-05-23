@@ -23,7 +23,7 @@
                </c:if>
                
                <table class="tbl-ex">
-               	  <tr>
+                    <tr>
                      <th colspan="2">글쓰기</th>
                   </tr>
                   <tr>

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.cafe24.mysite.repository.BoardDao;
 import com.cafe24.mysite.vo.BoardVo;
@@ -13,43 +12,50 @@ import com.cafe24.mysite.vo.BoardVo;
 @Service
 public class BoardService {
 
-	@Autowired
-	private BoardDao boardDao;
-	
-	public List<BoardVo> getList(Map<String, Object> map) {
+    public static final int BOARD_CNT = 5;    //한번에 보여질 게시글
+    public static final int PAGE_CNT = 5;    //페이지 버튼 개수
+    
+    @Autowired
+    private BoardDao boardDao;
+    
+    public List<BoardVo> getList(Map<String, Object> map) {
 
-		return boardDao.getList(map);
+        return boardDao.getList(map);
 
-	}
+    }
 
-	public boolean insert(BoardVo boardVo) {
-		
-		return boardDao.insert(boardVo);
-	}
-	
-	public boolean insertReply(BoardVo boardVo) {
-		
-		return boardDao.insertReply(boardVo);
-	}
-	
-	public boolean delete(Long boardNo) {
-		return boardDao.delete(boardNo);
-	}
+    public boolean insert(BoardVo boardVo) {
+        
+        return boardDao.insert(boardVo);
+    }
+    
+    public boolean insertReply(BoardVo boardVo) {
+        
+        boardDao.updateOrderNo(boardVo);
+        return boardDao.reply(boardVo);
+        
+    }
+    
+    public boolean delete(Long boardNo) {
+        return boardDao.delete(boardNo);
+    }
 
-	public BoardVo getEachBoardVo(Long boardNo) {
-		return boardDao.getByBoardNo(boardNo);
-	}
+    public BoardVo getEachBoardVo(Long boardNo) {
+        return boardDao.getByBoardNo(boardNo);
+    }
 
-	public boolean update(BoardVo boardVo) {
-		return boardDao.modifyVo(boardVo);
-	}
+    public boolean update(BoardVo boardVo) {
+        return boardDao.modifyVo(boardVo);
+    }
 
-	public boolean hitIncrease(Long boardNo) {
-		return boardDao.hitUpdate(boardNo);
-	}
+    public boolean hitIncrease(Long boardNo) {
+        return boardDao.hitUpdate(boardNo);
+    }
 
-	public boolean updateOrderNo(BoardVo boardGetVo) {
-		return boardDao.updateOrderNo(boardGetVo);
-	}
-	
+    public boolean updateOrderNo(BoardVo boardGetVo) {
+        return boardDao.updateOrderNo(boardGetVo);
+    }
+    
+    
 }
+
