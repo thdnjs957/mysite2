@@ -26,7 +26,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/user")
-	public String user() {//유저 관리 페이지\
+	public String user() {//유저 관리 페이지
 		return "admin/user";
 	}
 	
