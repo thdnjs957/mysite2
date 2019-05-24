@@ -16,7 +16,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- spring core library -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -132,7 +131,19 @@
 			<version>4.2.0.Final</version>
 		</dependency>
 
-
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<profiles>
@@ -146,14 +157,14 @@
 							<exclude>**/*.java</exclude>
 						</excludes>
 					</resource>
-					
+
 					<resource>
 						<directory>${project.basedir}/src/main/production/resources</directory>
 						<excludes>
 							<exclude>**/*.java</exclude>
 						</excludes>
 					</resource>
-					
+
 				</resources>
 				<plugins>
 					<plugin>
@@ -165,6 +176,7 @@
 					</plugin>
 				</plugins>
 			</build>
+			
 			<dependencies>
 				<!-- Servlet -->
 				<dependency>
