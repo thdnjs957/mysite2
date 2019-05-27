@@ -33,24 +33,28 @@
        
        </insert>
        
-       <select id="getList" resultType="boardvo" parameterType="map">
+     <select id="getList" resultType="boardvo" parameterType="map">
              
               <![CDATA[
                     SELECT b.no, b.title, b.contents, b.hit, b.reg_date as regDate ,b.user_no as userNo,b.group_no as groupNo ,u.name as userName,b.depth
                      FROM user u, board b
                      WHERE u.no = b.user_no
               ]]>
-           <if test="keyword != null">
+              
+           <if test="keyword != null or keyword = ''">
                  <![CDATA[
                       AND title like CONCAT('%', #{keyword}, '%') OR contents like CONCAT('%', #{keyword}, '%')
+                  and u.no = b.user_no
                    ]]>
            </if> 
+           
               <![CDATA[
                     ORDER BY group_no DESC, order_no ASC 
-                    LIMIT #{pageStart},#{pageCnt}
+                    LIMIT #{pageStart},#{boardCnt}
               ]]>
               
        </select>
+
        
        
        <select id="getByBoardNo" resultType="boardvo" parameterType="long">
@@ -67,6 +71,7 @@
                     SELECT no, name, contents, date_format(reg_date,'%Y-%m-%d %h:%i:%s')
                      FROM guestbook
                     ORDER BY reg_date desc
+                    
              ]]>
              <if test="_parameter > 0">
                     <![CDATA[

@@ -6,10 +6,11 @@ import com.cafe24.security.Auth;
 
 @Controller
 @RequestMapping("/admin")
+@Auth(role = Auth.Role.ADMIN)
 // Auth에 type(클래스) 추가해야함 , 인증을 받아야하는데 ADMIN 권한임 
 public class AdminController {
 	
-	@Auth(role = Auth.Role.ADMIN)
+	
 	@RequestMapping({"","/main"})
 	public String main() {
 		return "admin/main";

@@ -22,44 +22,42 @@ public class BoardService {
     
     public Map<String,Object> getList(String keyword,int curPage) { //map.put("keyword", keyword) , map.put("curPage",curPage);
        
+       int pageStart = (curPage-1) * BOARD_CNT ;
+       int pageEnd = pageStart+BOARD_CNT-1;
+       int totalCount = boardDao.getCount(keyword); 
        
-    	//1. 페이징을 위한 기본 데이터 계산
-		int totalCount = boardDao.getCount( keyword ); 
-		int pageCount = (int)Math.ceil( (double)totalCount / BOARD_CNT );
-		int blockCount = (int)Math.ceil( (double)pageCount / PAGE_CNT );
-		int currentBlock = (int)Math.ceil( (double)curPage / PAGE_CNT );
-		
-		//2. 파라미터 page 값  검증
-		if( curPage > pageCount ) {
-			curPage = pageCount;
-			currentBlock = (int)Math.ceil( (double)curPage / PAGE_CNT );
-		}		
-		
-		if( curPage < 1 ) {
-			curPage = 1;
-			currentBlock = 1;
-		}
-		
-		//3. view에서 페이지 리스트를 렌더링 하기위한 데이터 값 계산
-		int beginPage = currentBlock == 0 ? 1 : (currentBlock - 1)*PAGE_CNT + 1;
-		int prevPage = ( currentBlock > 1 ) ? ( currentBlock - 1 ) * PAGE_CNT : 0;
-		int nextPage = ( currentBlock < blockCount ) ? currentBlock * PAGE_CNT + 1 : 0;
-		int endPage = ( nextPage > 0 ) ? ( beginPage - 1 ) + BOARD_CNT : pageCount;
+       int end = (int) (Math.ceil( (double)curPage / (double) PAGE_CNT) * PAGE_CNT);
        
-       //boolean prev = pageStart != 1 ? true:false; // 페이징 이전 버튼 활성화 여부
-       //boolean next = pageEnd * BOARD_CNT >= totalCount ? false : true;
-       Map<String, Integer> pagerMap = new HashMap<String, Integer>();
-       pagerMap.put("pageStart", beginPage);
-//       pagerMap.put("pageEnd", pageEnd);
-       
-       
-       Map<String, Object> listMap = new HashMap<String, Object>();
-       listMap.put("curPage",curPage);
-       listMap.put("pageCnt",PAGE_CNT);
-       listMap.put("keyword", keyword);
-       
+        int tempEndPage = (int) (Math.ceil(totalCount / (double) PAGE_CNT ));
+        
+        if (end > tempEndPage) {
+           end = tempEndPage;
+        }
 
-       List<BoardVo> list = boardDao.getList(listMap);
+       int start = (end - BOARD_CNT) + 1;
+        if(start <= 0) start = 1;
+       
+       int prev = start == 1 ? 0:1; // 페이징 이전 버튼 활성화 여부
+       int next = end * BOARD_CNT >= totalCount ? 0 : 1;
+       
+       Map<String, Integer> pagerMap = new HashMap<String, Integer>();
+       pagerMap.put("start", start);
+       pagerMap.put("end", end);
+       pagerMap.put("prev", prev);
+       pagerMap.put("next", next);
+       pagerMap.put("pageStart", pageStart);
+       pagerMap.put("pageEnd", pageEnd);
+       pagerMap.put("curPage", curPage);   
+       pagerMap.put("totalCount", totalCount);   
+       pagerMap.put("pageCnt", PAGE_CNT);   
+       
+       
+       Map<String, Object> listMap = new HashMap<String, Object>(); //board.xml 
+       listMap.put("pageStart",pageStart);
+       listMap.put("boardCnt",BOARD_CNT);
+      listMap.put("keyword", keyword);
+
+      List<BoardVo> list = boardDao.getList(listMap);
        
       Map<String, Object> map = new HashMap<String, Object>();
       
