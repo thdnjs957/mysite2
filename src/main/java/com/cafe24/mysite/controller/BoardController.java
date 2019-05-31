@@ -53,7 +53,6 @@ public class BoardController {
       return "board/write";
    }
   
-  
    @RequestMapping(value = "/write",method=RequestMethod.POST)
    public String write(Model model,@ModelAttribute BoardVo boardVo,HttpSession session) {
       if(boardVo.getNo() != null) { //답글이면

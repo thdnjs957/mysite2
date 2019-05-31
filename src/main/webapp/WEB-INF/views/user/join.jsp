@@ -13,7 +13,7 @@
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/user.css"
 	rel="stylesheet" type="text/css">
-<%-- <script src = "${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script src = "${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
 	
 	$(function(){ //dom이 다 로딩된 다음에 실행됨!!!!
@@ -60,7 +60,7 @@
 		});
 		
 	});
-</script> --%>
+</script>
 </head>
 <body>
 	<div id="container">
