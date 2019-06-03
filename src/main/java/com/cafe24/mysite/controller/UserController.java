@@ -32,12 +32,11 @@ public class UserController {
 	public String join(@ModelAttribute @Valid UserVo userVo,BindingResult result, Model model) { //valid하고 만약 에러가 있으면 result에 담음
 		
 		if(result.hasErrors()) {
-
 			model.addAllAttributes(result.getModel());
 			return "/user/join";
 		}
 		
-		userService.join(userVo);
+		//userService.join(userVo); 잠깐 막아둠
 		return "redirect:/user/joinsuccess";
 	} 
 	
@@ -84,40 +83,6 @@ public class UserController {
 		
 		return "user/myinfo";
 	} 
-	
-	
-//interceptor로 구현
-//	@RequestMapping("/logout") 
-//	public String logout(HttpSession session) {
-//		session.removeAttribute("authUser");
-//		session.invalidate();
-//		return "redirect:/";
-//	} 
-	
-//	@RequestMapping(value="/login", method=RequestMethod.POST)
-//	public String login(
-//			@RequestParam(value="email", required=true, defaultValue="") String email,
-//			@RequestParam(value="password", required=true, defaultValue="") String password,
-//			HttpSession session,Model model) 
-//	{	
-//		UserVo authUser = userService.getUser(new UserVo(email,password));
-//		
-//		if(authUser == null) {
-//			model.addAttribute("result","fail");
-//			return "user/login";
-//		}
-//		
-//		//session 처리
-//		session.setAttribute("authUser", authUser);
-//		
-//		return "redirect:/"; //main으로 redirect
-//	} 
-	
-	
-//	@ExceptionHandler( Exception.class )
-//	public String handleUserDaoException() {
-//		return "error/exception";
-//	}
 
-	
+
 }

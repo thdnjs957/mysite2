@@ -13,7 +13,7 @@
 	<!-- auto proxy -->
 	<aop:aspectj-autoproxy />
 
-	<!-- validator설정!, conversionService, messageConverter를 자동으로 등록 -->
+	<!-- (@Valid)validator설정!, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean

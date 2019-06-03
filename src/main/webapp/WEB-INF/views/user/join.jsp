@@ -70,6 +70,7 @@
 				<form:form modelAttribute="userVo" id="join-form" name="joinForm" method="post" action="${pageContext.servletContext.contextPath }/user/join" >
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="">
+					
 					<spring:hasBindErrors name="userVo">
 					    <c:if test="${errors.hasFieldErrors('name') }">
 							<p style="font-weight:bold; color:red; text-align:left; padding:0">
