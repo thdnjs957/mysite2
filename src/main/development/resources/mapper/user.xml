@@ -5,37 +5,39 @@
 
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
-			insert into user(no,name,email,password,gender,join_date) values(null,#{name},#{email},#{password},#{gender},now())		
+			insert into member(no,name,email,password,gender,join_date) values(nextval('member_seq'),#{name},#{email},#{password},#{gender},now())		
 		]]>
+		
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
-			select last_insert_id()
+  			SELECT currval('member_seq');
 		</selectKey>
+		
 	</insert>
 	
 	<select id="getByEmailAndPassword" parameterType="map" resultType="uservo">
 		<![CDATA[
-			select no,name,role from user where email=#{email} and password=#{password}
+			select no,name,role from member where email=#{email} and password=#{password}
 		]]>
 		
 	</select>
 	
 	<select id="getByEmail" parameterType="string" resultType="uservo"> 
 		<![CDATA[
-			select name,email,password,gender,join_date from user where email = #{email}
+			select name,email,password,gender,join_date from member where email = #{email}
 		]]>
 	</select>
 	
 	
 	<select id="getByNo" parameterType="long" resultType="uservo"> <!-- 기본 타입이 들어오면 그냥 아무거나 써도 됨! -->
 		<![CDATA[
-			select name,email,password,gender,join_date from user where no = #{value}
+			select name,email,password,gender,join_date from member where no = #{value}
 		]]>
 	</select>
 	
 	<update id="update" parameterType="uservo">
 		
 		<![CDATA[
-			update user set name = #{name}, 
+			update member set name = #{name}, 
 		]]>
 			<if test="password != ''">
 				<![CDATA[
@@ -45,7 +47,6 @@
 		<![CDATA[
 			where no = #{no}
 		]]>
-		
 	</update>
 
 </mapper>
