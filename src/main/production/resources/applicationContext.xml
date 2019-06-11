@@ -27,6 +27,8 @@
 			expression="org.springframework.stereotype.Component" />
 	</context:component-scan>
 
+
+	
 	<!-- Connection Pool DataSource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
@@ -34,6 +36,8 @@
 		<property name="username" value="webdb" />
 		<property name="password" value="webdb" />
 	</bean>
+
+
 
 	<!-- MyBatis SqlSessionFactoryBean --> 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 

@@ -60,6 +60,14 @@
 			<version>2.4.0</version>
 		</dependency>
 
+		<!-- postgresql jdbc -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.5</version>
+		</dependency>
+
+
 		<!-- spring jdbc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -130,7 +138,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.2.0.Final</version>
 		</dependency>
-		
+
 
 		<!-- Servlet -->
 		<dependency>
@@ -177,7 +185,7 @@
 					</plugin>
 				</plugins>
 			</build>
-			
+
 			<dependencies>
 				<!-- Servlet -->
 				<dependency>
