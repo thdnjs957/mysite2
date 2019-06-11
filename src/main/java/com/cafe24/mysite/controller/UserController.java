@@ -36,7 +36,7 @@ public class UserController {
 			return "/user/join";
 		}
 		
-		//userService.join(userVo); 잠깐 막아둠
+		userService.join(userVo);
 		return "redirect:/user/joinsuccess";
 	} 
 	
